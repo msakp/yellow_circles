@@ -1,15 +1,15 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication
 from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtCore import QRect, QPoint
-from PyQt5 import uic
+from UI import Ui_MainWindow
 import sys
 import random
 
 
-class CircleGenerator(QMainWindow):
+class CircleGenerator(Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("UI.ui", self)
+        self.setupUi(self)
         self.w, self.h = self.width(), self.height()
         self.qp = QPainter()
         self.can_draw = False
@@ -17,8 +17,9 @@ class CircleGenerator(QMainWindow):
 
     def paintEvent(self, event):
         if self.can_draw:
+            color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
             self.qp.begin(self)
-            self.qp.setBrush(QColor(255, 255, 0))
+            self.qp.setBrush(QColor(* color))
             self.drawCircle()
             self.qp.end()
 
